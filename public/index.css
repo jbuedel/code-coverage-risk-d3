@@ -18,3 +18,13 @@
   fill: #ccc;
   stroke: #666;
 }
+
+.josh path {
+    fill: green;
+}
+.mark path {
+    fill: pink;
+}
+.nick path {
+    file: blue;
+}
