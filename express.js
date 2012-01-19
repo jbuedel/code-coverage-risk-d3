@@ -6,8 +6,8 @@ app.set('view engine', 'html');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 
-app.get('/', function(req, response){
-  fs.readFile(__dirname + '/public/index.htm', function(error, content) {
+function sendFile(file, response){
+    fs.readFile( __dirname + '/public/' + file, function(error, content) {
     if (error) {
         response.writeHead(500);
         response.end();
@@ -17,13 +17,14 @@ app.get('/', function(req, response){
         response.end(content, 'utf-8');
     }
   });
+}
+
+app.get('/', function(req, response){
+    sendFile('index.html',response);
 });
 
 app.get('/:file', function(req,res){
-  var file = req.params.file
-    , path = __dirname + '/public/' + file;
-
-  res.send(path);
+    sendFile(file, res);
 });
 
 app.listen(process.env.C9_PORT);
