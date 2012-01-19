@@ -28,8 +28,5 @@ app.get('/:file', function(req,res){
   sendFile(file, res);
 });
 
-app.get('/data/us-states.json', function (req, res){
-    sendFile('data/us-states.json', res);
-});
 
 app.listen(process.env.C9_PORT);
