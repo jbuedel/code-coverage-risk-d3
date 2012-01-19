@@ -18,12 +18,10 @@ class Graph
   randomstate: () ->
     item = Math.floor ( Math.random() * 1000 ) % 48
     for state,i in Object.keys(@states) when i == item
-      console.log 'random', state
       return state
 
 
   map: (state, users, upos) ->
-    #console.log users, upos, @taken
     if users.length == upos
       return
     user = users[upos]
@@ -34,7 +32,6 @@ class Graph
         @taken[state] = upos
         users[upos] = users[upos] - 1
   
-      console.log state, @states[state]
       for st in @states[state] when !@taken[st]
         return @map st, users, upos
 
