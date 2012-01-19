@@ -1,8 +1,22 @@
 var express = require('express');
+var fs = require('fs');
 var app = express.createServer();
+app.set('view engine', 'html');
 
-app.get('/', function(req, res){
-  res.send(__dirname + '/public/index.html');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+
+app.get('/', function(req, response){
+  fs.readFile(__dirname + '/public/index.htm', function(error, content) {
+    if (error) {
+        response.writeHead(500);
+        response.end();
+    }
+    else {
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(content, 'utf-8');
+    }
+  });
 });
 
 app.get('/:file', function(req,res){
