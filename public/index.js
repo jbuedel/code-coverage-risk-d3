@@ -7,6 +7,22 @@ var data = [
   .169, , .132, .167, .139, .184, .159, .14, .146, .157, , .139, .183, .16, .143
 ];
 
+var users = { AL: 0,
+  MS: 0,
+  LA: 0,
+  PA: 1,
+  NY: 1,
+  NJ: 1,
+  DE: 1,
+  MD: 1,
+  IN: 2,
+  MI: 2,
+  WI: 2,
+  MN: 2,
+  IA: 2,
+  IL: 2 };
+
+
 var svg = d3.select("#chart").append("svg")
     .attr("width", 960)
     .attr("height", 500);
