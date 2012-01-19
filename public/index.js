@@ -7,7 +7,8 @@ var data = [
   .169, , .132, .167, .139, .184, .159, .14, .146, .157, , .139, .183, .16, .143
 ];
 
-var users = { 
+var users = ['mark','nick','josh'];
+var states_for_user = { 
   AL: 0,
   MS: 0,
   LA: 0,
