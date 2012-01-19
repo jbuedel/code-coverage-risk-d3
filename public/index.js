@@ -7,7 +7,8 @@ var data = [
   .169, , .132, .167, .139, .184, .159, .14, .146, .157, , .139, .183, .16, .143
 ];
 
-var users = { AL: 0,
+var users = { 
+  AL: 0,
   MS: 0,
   LA: 0,
   PA: 1,
@@ -36,7 +37,13 @@ d3.json("us-states.json", function(json) {
     .selectAll("path")
       .data(json.features)
     .enter().append("path")
-      .attr("d", path);
+      .attr("d", path)
+      .attr("class",function(d){
+          console.log(d);
+          return "mark";
+      });
+      
+    
 return;
   // A white overlay to hide interior black strokes.
   svg.append("g")
