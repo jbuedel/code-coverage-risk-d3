@@ -19,12 +19,15 @@
   stroke: #666;
 }
 
-.josh path {
+path.josh{
     fill: green;
 }
-.mark path {
-    fill: pink;
+path.mark  {
+    fill: red;
 }
-.nick path {
-    file: blue;
+path.nick  {
+    fill: blue;
+}
+path.noone{
+    fill:gray
 }

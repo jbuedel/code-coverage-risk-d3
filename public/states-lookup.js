@@ -1,4 +1,4 @@
-var window.states_lookup = {
+ window.states_lookup = {
   identifier:"abbreviation",
   label: "name",
   items: [

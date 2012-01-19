@@ -40,8 +40,15 @@ d3.json("us-states.json", function(json) {
     .enter().append("path")
       .attr("d", path)
       .attr("class",function(d){
-          console.log(d);
-          return "mark";
+          var state_name = d.properties.name;
+          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
+          var user = states_for_user[state.abbreviation];
+          if(user != undefined){
+            console.log(state,users[user]);
+            return users[user];             
+          } else {
+              return "noone";
+          }
       });
       
     
