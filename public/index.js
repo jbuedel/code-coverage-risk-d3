@@ -21,7 +21,7 @@ d3.json("us-states.json", function(json) {
       .data(json.features)
     .enter().append("path")
       .attr("d", path);
-
+return;
   // A white overlay to hide interior black strokes.
   svg.append("g")
       .attr("class", "white")
