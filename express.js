@@ -24,7 +24,9 @@ app.get('/', function(req, response){
 });
 
 app.get('/:file', function(req,res){
-    sendFile(file, res);
+  var file = req.params.file;
+  sendFile(file, res);
+
 });
 
 app.listen(process.env.C9_PORT);
