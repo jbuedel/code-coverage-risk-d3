@@ -10,6 +10,111 @@ var data = [
 var users = ['mark','nick','josh'];
   
 var all_states_to_user = [ 
+    {},
+     { 
+      IA: 2 },
+     { 
+      MS: 0,
+      IA: 2 },
+     { 
+      MS: 0,
+      PA: 1,
+      IA: 2 }, 
+     { 
+      MS: 0,
+      PA: 1,
+      WI: 2,
+      IA: 2 }, 
+            { 
+      MS: 0,
+      PA: 1,
+      NY: 1,
+      WI: 2,
+      IA: 2 }, 
+            { 
+      MS: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      WI: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      WI: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      MI: 2,
+      WI: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2 }, 
+        { 
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2 }, 
     { 
       AL: 0,
       MS: 0,
@@ -149,14 +254,19 @@ d3.json("us-states.json", function(json) {
       .attr("class",setUser(all_states_to_user[0]));
       
 });
+function index(i, N) { return i % (N*2) - (i % N * 2 + 1) * (Math.floor(i/N)%2); }
 
 function next(pos) {
     d3.json("us-states.json", function(json) {
         var path = d3.geo.path();
         
+        var len = all_states_to_user.length;
+        
+        var i = index(pos, len);
+        
         svg.selectAll("path")
             .data(json.features)
-            .attr("class", setUser(all_states_to_user[pos%all_states_to_user.length]));
+            .attr("class", setUser(all_states_to_user[i]));
     });
     
     setTimeout(function () { next(pos+1); }, 1000);
