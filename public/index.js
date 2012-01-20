@@ -8,39 +8,114 @@ var data = [
 ];
 
 var users = ['mark','nick','josh'];
-var states_to_user = { 
-  AL: 0,
-  MS: 0,
-  LA: 0,
-  PA: 1,
-  NY: 1,
-  NJ: 1,
-  DE: 1,
-  MD: 1,
-  IN: 2,
-  MI: 2,
-  WI: 2,
-  MN: 2,
-  IA: 2,
-  IL: 2 };
   
-  
-var states_to_user2 = { 
-  AL: 1,
-  MS: 1,
-  LA: 1,
-  PA: 0,
-  NY: 0,
-  NJ: 0,
-  DE: 0,
-  MD: 0,
-  IN: 2,
-  MI: 2,
-  WI: 2,
-  MN: 2,
-  IA: 2,
-  IL: 2 };
-  
+var all_states_to_user = [ 
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2 }, 
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      AR: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2 },
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      AR: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2,
+      NE: 2 },
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      AR: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      WV: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2,
+      NE: 2 },
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      AR: 0,
+      MO: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      WV: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2,
+      NE: 2 },
+    { 
+      AL: 0,
+      MS: 0,
+      LA: 0,
+      AR: 0,
+      MO: 0,
+      PA: 1,
+      NY: 1,
+      NJ: 1,
+      DE: 1,
+      MD: 1,
+      WV: 1,
+      IN: 2,
+      MI: 2,
+      WI: 2,
+      MN: 2,
+      IA: 2,
+      IL: 2,
+      SD: 2,
+      NE: 2 },
+];
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", 960)
@@ -71,16 +146,20 @@ d3.json("us-states.json", function(json) {
       .data(json.features)
     .enter().append("path")
       .attr("d", path)
-      .attr("class",setUser(states_to_user));
+      .attr("class",setUser(all_states_to_user[0]));
       
 });
 
-function next() {
+function next(pos) {
     d3.json("us-states.json", function(json) {
         var path = d3.geo.path();
         
         svg.selectAll("path")
             .data(json.features)
-            .attr("class", setUser(states_to_user2));
+            .attr("class", setUser(all_states_to_user[pos%all_states_to_user.length]));
     });
+    
+    setTimeout(function () { next(pos+1); }, 1000);
 }
+
+setTimeout(function () { next(0); }, 1000);
