@@ -42,12 +42,28 @@ var states_for_user_other = {
   MO: 2};
 
 var map;
-
+var dothatshizzle;
 var svg = d3.select("#chart").append("svg")
     .attr("width", 960)
     .attr("height", 500);
 
-d3.json("us-states.json", function(json) {
+d3.json("us-states.json", function(json){
+    map = json
+    mapIt(json,data);
+    dothatshizzle = function() {step2bitches(json);}
+    });
+function classNameIt(datadef) { return function(d){
+          var state_name = d.properties.name;
+          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
+          var user = datadef[state.abbreviation];
+          if(user != undefined){
+            console.log(state,users[user]);
+            return users[user];             
+          } else {
+              return "noone";
+          }
+      }}
+function mapIt(json,data) {
   map = json;
   var path = d3.geo.path();
 
@@ -55,37 +71,16 @@ d3.json("us-states.json", function(json) {
   svg.append("g")
       .attr("class", "black")
     .selectAll("path")
-      .data(json.features)
+    .data(json.features)
     .enter().append("path")
       .attr("d", path)
-      .attr("class",function(d){
-          var state_name = d.properties.name;
-          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
-          var user = states_for_user[state.abbreviation];
-          if(user != undefined){
-            console.log(state,users[user]);
-            return users[user];             
-          } else {
-              return "noone";
-          }
-      });
-      
-    
-});
-
-
-function other(){
-  d3.select("#chart g path")
-    .data(map.features)
-      .attr("class",function(d){
-          var state_name = d.properties.name;
-          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
-          var user = states_for_user_other[state.abbreviation];
-          if(user != undefined){
-            console.log(state,users[user]);
-            return users[user];             
-          } else {
-              return "noone";
-          }
-      });
+      .attr("class",classNameIt(states_for_user));
 }
+function step2bitches(json) {
+  svg.append("g")
+      .attr("class", "black")
+    .selectAll("path")
+      .data(json.features)
+      .attr("class",classNameIt(states_for_user_other));
+}
+
