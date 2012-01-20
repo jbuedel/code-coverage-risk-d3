@@ -8,7 +8,7 @@ var data = [
 ];
 
 var users = ['mark','nick','josh'];
-var states_for_user = { 
+var states_to_user = { 
   AL: 0,
   MS: 0,
   LA: 0,
@@ -23,14 +23,46 @@ var states_for_user = {
   MN: 2,
   IA: 2,
   IL: 2 };
-
+  
+  
+var states_to_user2 = { 
+  AL: 1,
+  MS: 1,
+  LA: 1,
+  PA: 0,
+  NY: 0,
+  NJ: 0,
+  DE: 0,
+  MD: 0,
+  IN: 2,
+  MI: 2,
+  WI: 2,
+  MN: 2,
+  IA: 2,
+  IL: 2 };
+  
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", 960)
     .attr("height", 500);
 
+function setUser(states_for_user) {
+    return function(d){
+          var state_name = d.properties.name;
+          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
+          var user = states_for_user[state.abbreviation];
+          if(user != undefined){
+            //console.log(state,users[user]);
+            return users[user];             
+          } else {
+              return "noone";
+          }
+      };
+}
+
 d3.json("us-states.json", function(json) {
   var path = d3.geo.path();
+
 
   // A thick black stroke for the exterior.
   svg.append("g")
@@ -39,45 +71,16 @@ d3.json("us-states.json", function(json) {
       .data(json.features)
     .enter().append("path")
       .attr("d", path)
-      .attr("class",function(d){
-          var state_name = d.properties.name;
-          var state =_.find(window.states_lookup.items, function(s){return s.name === state_name});
-          var user = states_for_user[state.abbreviation];
-          if(user != undefined){
-            console.log(state,users[user]);
-            return users[user];             
-          } else {
-              return "noone";
-          }
-      });
+      .attr("class",setUser(states_to_user));
       
-    
-return;
-  // A white overlay to hide interior black strokes.
-  svg.append("g")
-      .attr("class", "white")
-    .selectAll("path")
-      .data(json.features)
-    .enter().append("path")
-      .attr("d", path);
-
-  // The polygons, scaled!
-  svg.append("g")
-      .attr("class", "grey")
-    .selectAll("path")
-      .data(json.features)
-    .enter().append("path")
-      .attr("d", path)
-      .attr("transform", function(d) {
-        var centroid = path.centroid(d),
-            x = centroid[0],
-            y = centroid[1];
-        return "translate(" + x + "," + y + ")"
-            + "scale(" + Math.sqrt(data[+d.id] * 5 || 0) + ")"
-            + "translate(" + -x + "," + -y + ")";
-      })
-      .style("stroke-width", function(d) {
-        return 1 / Math.sqrt(data[+d.id] * 5 || 1);
-      });
-
 });
+
+function next() {
+    d3.json("us-states.json", function(json) {
+        var path = d3.geo.path();
+        
+        svg.selectAll("path")
+            .data(json.features)
+            .attr("class", setUser(states_to_user2));
+    });
+}
