@@ -19,15 +19,15 @@
   stroke: #666;
 }
 
-path.josh{
+path.user_1{
     fill: green;
 }
-path.mark  {
+path.user_2  {
     fill: red;
 }
-path.nick  {
+path.user_3  {
     fill: blue;
 }
-path.noone{
+path.user_0{
     fill:gray
 }
