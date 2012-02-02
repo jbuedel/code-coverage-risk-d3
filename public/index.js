@@ -74,15 +74,10 @@ svg.append("g")
 
   svg.selectAll("path")
 .data(data)
+  .transition()
+  .duration(400)
+  .delay(function(d,i){return i * 100;})
   .attr("class",function(d){
     return "user_" + d;
   });
 
-window.setTimeout(function(){
-  console.log('time');
-  svg.selectAll("path")
-  .data(data2)
-  .attr("class",function(d){
-    return "user_" + d;
-  });
-}, 2000);
