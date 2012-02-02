@@ -99,6 +99,7 @@ svg.append("g")
 function next(){
   setTimeout(function (){ 
     draw();
+    document.getElementsByTagName("h1")[0].innerText = "build " + current;
     current = ++current % data.length;
       next();
   }, 1000);
