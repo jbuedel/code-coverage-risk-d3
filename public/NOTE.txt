@@ -1,0 +1,1 @@
+Can find a sample dotcover codecoverage xml (and json!) output here: https://github.com/hhariri/Blog/tree/master/dotCoverConsoleAndTestCoverage/
